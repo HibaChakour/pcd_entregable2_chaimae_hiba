@@ -245,3 +245,32 @@ class Max_Min(Strategie):
 # codigo prueba
 
 
+if __name__ == "_main_":
+    
+    try:
+        sistema = SystemeLoT.get_instance()
+        sistema_observador = sistema._crearsysteme()
+        sensor = sistema._crearSensor()
+        
+        sensor.registrar_obs(sistema_observador)
+        
+        print("Iniciando la observación de temperatura...")
+        sistema.iniciar(sensor)
+        
+        # Esperar un tiempo para recibir algunas lecturas
+        time.sleep(60)
+        
+        print("Finalizando la observación de temperatura...")
+        sistema.fin(sensor)
+    except Exp_Singleton as e:
+        print(f"Error Singleton: {str(e)}")
+    except Arg_Error as e:
+        print(f"Error de Argumento: {str(e)}")
+    except Sensor_exp as e:
+        print(f"Error del Sensor: {str(e)}")
+    except Error_ejecucion as e:
+        print(f"Error de Ejecución: {str(e)}")
+    except Error_registracion as e:
+        print(f"Error de registracion: {str(e)} ")
+    except Error_proceso as e:
+        print(f"Error de procesamiento:{str(e)}")
